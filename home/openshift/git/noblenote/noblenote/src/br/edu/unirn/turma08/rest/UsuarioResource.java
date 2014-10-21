@@ -1,21 +1,20 @@
 package br.edu.unirn.turma08.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.edu.unirn.turma08.modelo.Usuario;
-import br.edu.unirn.turma08.noblenote.dao.UsuarioDAO;
 
 @Path("/usuario")
 public class UsuarioResource {
 
-	private static List<Usuario> usuarios = new ArrayList<Usuario>();
+	private static List<Usuario> usuarios = UsuarioLista.getUsuarios();
 
 	public static List<Usuario> getUsuarios() {
 		return usuarios;
@@ -31,7 +30,7 @@ public class UsuarioResource {
 	public Response logar(@QueryParam("login") String login,
 			@QueryParam("senha") String senha) {
 
-		Response response = Response.status(Response.Status.FORBIDDEN).build();
+		Response response = Response.status(Response.Status.OK).build();
 
 		if (!login.equals("") && !senha.equals("")) {
 
@@ -51,22 +50,35 @@ public class UsuarioResource {
 		return response;
 	}
 
-	@GET
+	@POST
 	@Produces("application/json")
 	@Path("/cadastro")
-	public Usuario cadastro(@QueryParam("login") String login,
+	/*public Usuario cadastro(@QueryParam("login") String login,
 			@QueryParam("senha") String senha, @QueryParam("nome") String nome,
-			@QueryParam("numeroTelefone") String numeroTelefone) {
-
-		Usuario usuario = new Usuario();
-		usuario.setLogin(login);
-		usuario.setNome(nome);
-		usuario.setNumeroTelefone(numeroTelefone);
-		usuario.setSenha(senha);
+			@QueryParam("numeroTelefone") String numeroTelefone) {*/
+	public Usuario cadastro(Usuario usuario){
 
 		usuarios.add(usuario);
 		
       	return usuario;
 	}
-
+	
+	@GET
+	@Produces("application/json")
+	@Path("/alterarsenha")
+	public Usuario alterarSenha(@QueryParam("login") String login,
+			@QueryParam("senha") String senha, @QueryParam("novasenha") String novaSenha){
+		
+		return null;
+	}
+	
+	@GET
+	@Produces("application/json")
+	@Path("/recuperarsenha")
+	public Usuario recuperarSenha(@QueryParam("login") String login,
+			@QueryParam("numerotelefone") String numeroTelefone){
+		
+		return null;
+	}
+	
 }
