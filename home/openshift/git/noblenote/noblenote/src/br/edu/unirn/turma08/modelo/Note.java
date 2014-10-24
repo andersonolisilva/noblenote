@@ -3,7 +3,6 @@ package br.edu.unirn.turma08.modelo;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.faces.bean.ManagedBean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +18,6 @@ import br.edu.unirn.turma08.noblenote.arquitetura.PersistDB;
 
 @Entity
 @Table(name = "note")
-@ManagedBean
 public class Note implements PersistDB, Serializable {
 
 	/**

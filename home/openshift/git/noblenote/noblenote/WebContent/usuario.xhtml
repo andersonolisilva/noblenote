@@ -11,35 +11,44 @@
 		<h:panelGrid columns="2">
 
 			<h:outputText value="Id:"></h:outputText>
-			<h:inputText id="id" value="#{usuario.id}"></h:inputText>
+			<h:inputText id="id" value="#{usuarioMBean.usuarioSelecionado.id}"></h:inputText>
 
 			<h:outputText value="Nome:"></h:outputText>
-			<h:inputText id="nome" value="#{usuario.nome}"></h:inputText>
+			<h:inputText id="nome" value="#{usuarioMBean.usuarioSelecionado.nome}"></h:inputText>
 
 			<h:outputText value="Número de Telefone:"></h:outputText>
-			<h:inputText id="numeroTelefone" value="#{usuario.numeroTelefone}"></h:inputText>
+			<h:inputText id="numeroTelefone" value="#{usuarioMBean.usuarioSelecionado.numeroTelefone}"></h:inputText>
 
 			<h:outputText value="Login:"></h:outputText>
-			<h:inputText id="login" value="#{usuario.login}"></h:inputText>
+			<h:inputText id="login" value="#{usuarioMBean.usuarioSelecionado.login}"></h:inputText>
 
 			<h:outputText value="Senha:"></h:outputText>
-			<h:inputText id="senha" value="#{usuario.senha}"></h:inputText>
+			<h:inputText id="senha" value="#{usuarioMBean.usuarioSelecionado.senha}"></h:inputText>
 
 			<h:commandButton id="btnCadastrar" value="Cadastrar"
-				action="#{usuarioMBean.cadastrarUsuario(usuario)}" />
+				action="#{usuarioMBean.cadastrarUsuario()}" />
 
 		</h:panelGrid>
+		
 	</h:form>
 
-	<h:dataTable id="table"
-		value="#{usuarioMBean.listarUsuarios()}" var="usu">
-		<h:column>
+	<h:dataTable value="#{usuarioMBean.listarUsuarios()}" var="usuario"	>
+ 
+    			<h:column>
     				<!-- column header -->
     				<f:facet name="header">Nome</f:facet>
     				<!-- row record -->
-    				#{usu.nome}
-    	</h:column>
-	</h:dataTable>
+    				#{usuario.nome}
+    			</h:column>
+    			
+    			<h:column>
+    				<!-- column header -->
+    				<f:facet name="header">Número de Telefone</f:facet>
+    				<!-- row record -->
+    				#{usuario.numeroTelefone}
+    			</h:column>
+    			
+    </h:dataTable>
 
 </h:body>
 

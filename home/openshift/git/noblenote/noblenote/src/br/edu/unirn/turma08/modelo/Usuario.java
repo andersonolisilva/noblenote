@@ -3,7 +3,6 @@ package br.edu.unirn.turma08.modelo;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.faces.bean.ManagedBean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import br.edu.unirn.turma08.noblenote.arquitetura.PersistDB;
 
 @Entity
 @Table(name = "usuario")
-@ManagedBean
+@XmlRootElement(name="usuario")
 public class Usuario implements PersistDB, Serializable {
 
 	/**
@@ -35,6 +36,7 @@ public class Usuario implements PersistDB, Serializable {
 	@OneToMany(mappedBy = "usuario")
 	private Collection<Note> notes;
 
+	@XmlElement
 	public int getId() {
 		return id;
 	}
@@ -43,6 +45,7 @@ public class Usuario implements PersistDB, Serializable {
 		this.id = id;
 	}
 
+	@XmlElement
 	public String getNome() {
 		return nome;
 	}
@@ -51,6 +54,7 @@ public class Usuario implements PersistDB, Serializable {
 		this.nome = nome;
 	}
 	
+	@XmlElement
 	public String getLogin() {
 		return login;
 	}
@@ -59,6 +63,7 @@ public class Usuario implements PersistDB, Serializable {
 		this.login = login;
 	}
 
+	@XmlElement
 	public String getSenha() {
 		return senha;
 	}
@@ -67,6 +72,7 @@ public class Usuario implements PersistDB, Serializable {
 		this.senha = senha;
 	}
 
+	@XmlElement
 	public String getNumeroTelefone() {
 		return numeroTelefone;
 	}
@@ -75,6 +81,7 @@ public class Usuario implements PersistDB, Serializable {
 		this.numeroTelefone = numeroTelefone;
 	}
 
+	@XmlElement
 	public Collection<Note> getNotes() {
 		return notes;
 	}

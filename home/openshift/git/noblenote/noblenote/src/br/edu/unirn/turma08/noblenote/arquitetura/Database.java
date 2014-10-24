@@ -10,7 +10,8 @@ public class Database {
 	private static EntityManager em;
 
 	private Database() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("noblenote");
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("noblenote");
 		em = emf.createEntityManager();
 	}
 
@@ -23,4 +24,3 @@ public class Database {
 	}
 
 }
-

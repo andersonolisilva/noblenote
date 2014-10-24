@@ -19,7 +19,9 @@ public abstract class GenericDAO<T> {
 	}
 
 	public void create(T c) {
+		em.getTransaction().begin();
 		em.persist(c);
+		em.getTransaction().commit();
 	}
 
 	public void update(T c) {
