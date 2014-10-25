@@ -22,15 +22,18 @@ public class UsuarioResource {
 	@Path("/hello")
 	@Produces("text/plain")
 	public String hello() {
-		return "Hello World";
+		return "Teste para Ok com WebService";
 	}
 
+	/*
+	 * Acertado com Plecyo
+	 * */
 	@GET
 	@Produces("application/json")
 	@Path("/logar")
 	public Response logar(@QueryParam("login") String login,
 			@QueryParam("senha") String senha) {
-
+	
 		Response response = Response.status(Response.Status.OK).build();
 
 		if (!login.equals("") && !senha.equals("")) {
@@ -39,49 +42,84 @@ public class UsuarioResource {
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 
-			List<Usuario> usuarios = dao.findAll();
-
-			for (Usuario usuario2 : usuarios) {
-				if (usuario2.equals(usuario)) {
-					response = Response.status(Response.Status.OK)
-							.entity(usuario2).build();
-				}
+			Usuario usua = dao.logar(usuario);
+			if(usua!=null){
+				response = Response.status(Response.Status.OK)
+								.entity(usua).build();
 			}
-
+			
 		}
 
 		return response;
 	}
 
+	/*
+	 * Acertado com Plecyo
+	 * */
 	@POST
 	@Produces("application/json")
 	@Path("/cadastro")
-	public Usuario cadastro(Usuario usuario) {
+	public Response cadastro(Usuario usuario) {
+		
+		Response response = Response.status(Response.Status.OK).build();
+		try{
+			dao.create(usuario);
+			response = Response.status(Response.Status.OK).entity(usuario)
+					   .build();
+		}catch(Exception e){
+		}
 
-		dao.create(usuario);
-
-		return usuario;
+		return response;
 	}
 
+	/*
+	 * Acertado com Plecyo
+	 * */
 	@GET
 	@Produces("application/json")
 	@Path("/alterarsenha")
-	public Usuario alterarSenha(@QueryParam("login") String login,
+	public Response alterarSenha( @QueryParam("login") String login,
 			@QueryParam("senha") String senha,
 			@QueryParam("novasenha") String novaSenha) {
 
-		return null;
+		Response response = Response.status(Response.Status.OK).build();
+		
+		Usuario usuario = new Usuario();
+		usuario.setSenha(senha);
+		usuario.setLogin(login);
+		
+		Usuario usuarioLogado = dao.logar(usuario);
+		if (usuarioLogado != null){
+			usuarioLogado.setSenha(novaSenha);
+			dao.update(usuarioLogado);
+			response = Response.status(Response.Status.OK).entity(usuarioLogado)
+					.build();
+		}
+		
+		return response;
 	}
 
+	/*
+	 * Acertado com Plecyo
+	 * */
 	@GET
 	@Produces("application/json")
 	@Path("/recuperarsenha")
-	public Usuario recuperarSenha(@QueryParam("login") String login,
-			@QueryParam("numerotelefone") String numeroTelefone) {
-
-		return null;
+	public Response recuperarSenha(Usuario usuario) {
+		Response response = Response.status(Response.Status.OK).build();
+		
+		if (!( "".equals(usuario.getLogin()) || "".equals(usuario.getNumeroTelefone()) ) ){
+			usuario = dao.recuperarSenha(usuario);
+			response = Response.status(Response.Status.OK).entity(usuario)
+					.build();
+		}
+		return response;
 	}
 
+	/**
+	 * Codificação extra
+	 * @return
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/listarusuarios")

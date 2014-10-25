@@ -29,4 +29,22 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 		return usuario;
 	}
 	
+	public Usuario recuperarSenha(Usuario usuario){
+		
+		String jpql = "from Usuario u where u.login = :login and u.numeroTelefone = :numeroTelefone ";
+		
+		Query q = getEm().createQuery(jpql);
+		q.setParameter("login", usuario.getLogin());
+		q.setParameter("numeroTelefone", usuario.getNumeroTelefone());
+		
+	    
+		try{
+		    usuario = (Usuario) q.getSingleResult();
+		}catch(Exception e){
+			usuario = null;
+		}
+		
+		return usuario;
+	}
+	
 }

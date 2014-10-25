@@ -25,11 +25,15 @@ public abstract class GenericDAO<T> {
 	}
 
 	public void update(T c) {
+		em.getTransaction().begin();
 		em.merge(c);
+		em.getTransaction().commit();		
 	}
 
 	public void delete(T c) {
+		em.getTransaction().begin();
 		em.remove(c);
+		em.getTransaction().commit();
 	}
 
 	public void remove(Object id, Class<T> classe) {

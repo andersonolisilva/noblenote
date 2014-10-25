@@ -28,9 +28,11 @@
 			<h:commandButton id="btnCadastrar" value="Cadastrar"
 				action="#{usuarioMBean.cadastrarUsuario()}" />
 
+			<h:commandButton id="btnCadastrar1" value="Converter Objeto em JSON"
+				action="#{usuarioMBean.converterObjetoUsuarioEmJson()}" />
+
 		</h:panelGrid>
 		
-	</h:form>
 
 	<h:dataTable value="#{usuarioMBean.listarUsuarios()}" var="usuario"	>
  
@@ -48,7 +50,14 @@
     				#{usuario.numeroTelefone}
     			</h:column>
     			
+    			<h:column>
+	    			<f:facet name="header">Ações</f:facet>
+	    			<h:commandButton id="btnCadastrar1" value="Recuperar Senha"
+					action="#{usuarioMBean.recuperarSenha(usuario)}" />
+				</h:column>
     </h:dataTable>
+
+	</h:form>
 
 </h:body>
 

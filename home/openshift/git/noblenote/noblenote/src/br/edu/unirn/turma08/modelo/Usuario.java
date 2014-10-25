@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class Usuario implements PersistDB, Serializable {
 	private String login;
 	private String senha;
 	private String numeroTelefone;
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch=FetchType.LAZY)
 	private Collection<Note> notes;
 
 	@XmlElement
