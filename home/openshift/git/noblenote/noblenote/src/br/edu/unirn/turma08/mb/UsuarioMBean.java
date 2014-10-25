@@ -51,12 +51,12 @@ public class UsuarioMBean {
 	public List<Usuario> listarUsuarios() {
 
 		List<Usuario> usuarios = new ArrayList<Usuario>();
-		/*
-		 * Usuario usuario = dao.findByPrimaryKey(1); GsonBuilder builder = new
-		 * GsonBuilder(); builder.setDateFormat("dd/MM/yyyy"); Gson g =
-		 * builder.create(); String json = g.toJson(usuario);
-		 * System.out.println(json);
-		 */
+		
+		  Usuario usuario = dao.findByPrimaryKey(1); GsonBuilder builder = new
+		  GsonBuilder(); builder.setDateFormat("dd/MM/yyyy"); Gson g =
+		  builder.create(); String json = g.toJson(usuario);
+		  System.out.println(json);
+		 
 		/*
 		 * String json =
 		 * "{\"nome_completo\":\"Almiro Fagundes\",\"idade\":15,\"data_nascimento\":\"04/08/2012\",\"irmaos\":[\"Marilde Louzato\",\"João Fagundes\"]}"
@@ -74,6 +74,7 @@ public class UsuarioMBean {
 			ClientRequest request = new ClientRequest(
 					"http://localhost:8080/noblenote/rest/usuario/listarusuarios");
 			request.accept("application/json");
+			
 			ClientResponse<String> response = request.get(String.class);
 
 			if (response.getStatus() != 200) {
@@ -81,18 +82,18 @@ public class UsuarioMBean {
 						+ response.getStatus());
 			}
 
-			String json = response.getEntity().toString();
+			json = response.getEntity().toString();
 			JsonParser parser = new JsonParser();
         	JsonElement element = parser.parse(json);
         	JsonArray jasonArray = element.getAsJsonArray();
         	
         	for (JsonElement object : jasonArray) {
-        		
-        		System.out.println(" name is --"+object.toString());
+        		int fim = object.toString().length();
+        		System.out.println(" name is --"+object.toString().substring(10, fim-1 ));
         		GsonBuilder builder2 = new GsonBuilder();
        		 	builder2.setDateFormat("dd/MM/yyyy"); 
        		 	Gson g2 = builder2.create();
-       		 	Usuario u = g2.fromJson(object, Usuario.class);
+       		 	Usuario u = g2.fromJson( object.toString().substring(10, fim-1 ) , Usuario.class);
        		 	
        		 	usuarios.add(u);
 			}
